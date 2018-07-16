@@ -1,0 +1,20 @@
+# You have to make l_ms_api folder and place upper folder's APIs.
+
+# Example sites-available/000-default.conf
+<VirtualHost *:80>
+	ServerName "INPUT_YOUR_DOMAIN"
+	ServerAdmin webmaster@localhost
+   	WSGIScriptAlias / "INPUT_YOUR_BOT_DIRECTORY"/bottle.wsgi
+   	WSGIDaemonProcess LINE_BOT user=www-data group=www-data processes=1 threads=4
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+# Example apache2.conf
+<Directory "INPUT_YOUR_BOT_DIRECTORY">
+	WSGIProcessGroup LINE_BOT
+	WSGIApplicationGroup %{GLOBAL}
+	Require all granted
+	Order deny,allow
+	Allow from all
+</Directory>
