@@ -68,8 +68,18 @@ class Message(object):
     def addImageMap(self,imagemap):
         pass
         
-    def addTemplate(self,template):
-        pass
+    def addTemplate(self,template,altText="テンプレートメッセージ"):
+        self.chk_msg_len()
+        self.messages.append({
+            "type":"template",
+            "altText": altText,
+            "template": template
+        })
         
-    def addFlex(self,flex):
-        pass
+    def addFlex(self,flex,altText="フレックスメッセージ"):
+        self.chk_msg_len()
+        self.messages.append({
+            "type":"flex",
+            "altText": altText,
+            "contents": flex
+        })
