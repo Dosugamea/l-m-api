@@ -10,11 +10,19 @@ class Message(object):
         resp = self.reqPost("/bot/message/reply",params={"replyToken":self.replyToken,"messages": self.messages})
         self.messages = []
         if self.isOK(resp): return True
-        else: print(resp.text)
+        else: raise Exception(resp.text)
+        
+    def sendMessage(self,to):
+        if len(self.messages) == 0:
+            raise Exception("Messages aren't specified.")
+        resp = self.reqPost("/bot/message/push",params={"to":to,"messages": self.messages})
+        self.messages = []
+        if self.isOK(resp): return True
+        else: raise Exception(resp.text)
         
     def chk_msg_len(self):
         if len(self.messages) > 4:
-            raise Exception("You have to replyMessage before add.\n(Message Length is over than 5.)")
+            raise Exception("Message length is already 5. You have to send before add.")
     
     def addMessage(self,text):
         self.chk_msg_len()
